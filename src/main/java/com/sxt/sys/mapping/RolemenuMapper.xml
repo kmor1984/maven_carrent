@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sxt.sys.mapper.RolemenuMapper" >
+  <resultMap id="BaseResultMap" type="com.sxt.sys.domian.RolemenuKey" >
+    <id column="rid" property="rid" jdbcType="INTEGER" />
+    <id column="mid" property="mid" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="com.sxt.sys.domian.RolemenuKey" >
+    delete from sys_role_menu
+    where rid = #{rid,jdbcType=INTEGER}
+      and mid = #{mid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.sxt.sys.domian.RolemenuKey" >
+    insert into sys_role_menu (rid, mid)
+    values (#{rid,jdbcType=INTEGER}, #{mid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sxt.sys.domian.RolemenuKey" >
+    insert into sys_role_menu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rid != null" >
+        rid,
+      </if>
+      <if test="mid != null" >
+        mid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rid != null" >
+        #{rid,jdbcType=INTEGER},
+      </if>
+      <if test="mid != null" >
+        #{mid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+<!--   根据角色ID删除 -->
+  <delete id="deleteByRoleID" parameterType="java.lang.Integer" >
+    delete from sys_role_menu
+    where rid = #{rid,jdbcType=INTEGER}
+  </delete>
+  <!-- 添加角色菜单权限对应关系 -->
+  <insert id="insertByRoleID" parameterType="java.lang.Integer" >
+    insert into sys_role_menu (rid,mid) values(#{param1},#{param2})
+  </insert>
+  
+</mapper>
